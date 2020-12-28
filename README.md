@@ -10,7 +10,7 @@ To leverage this example, you must have access to your Chef workstation/servers 
 
 **Step 1:** Clone this repository under your Chef repo home directory
 
-```
+```shell
 cd $CHEFREPO/cookbooks
 git clone https://github.com/sudobinbash/asa-chef-example.git
 ```
@@ -26,12 +26,12 @@ git clone https://github.com/sudobinbash/asa-chef-example.git
 ![ASA: Enrollment token](img/asa-get-token.png)
 
 **Step 3:** Edit the `asa-chef-example/attributes/default.rb` file, replacing `ENROLLMENT_TOKEN` with the token from ASA:
-```
+```ruby
 default['asa_enrollment_token'] = 'ENROLLMENT_TOKEN'
 ```
 
 **Step 4:** Confirm your configuration has no typos: `cookstyle attributes/default.rb`:
-```
+```shell
 # cookstyle attributes/default.rb
 Inspecting 1 file
 1 file inspected, no offenses detected
@@ -41,9 +41,9 @@ Inspecting 1 file
 # Using the Sample
 
 You can use this sample in:
-1. Chef Infrastructure (using Chef Server and Nodes)
-2. VMs hosted in your machine (using Chef's Test Kitchen)
-3. A Linux machine with Chef Workstation (using Chef Zero)
+1. [Chef Infrastructure (using Chef Server and Nodes)](#option-1-chef-infrastructure-chef-server-and-nodes)
+2. [VMs hosted in your machine (using Chef's Test Kitchen)](#option-2-vms-hosted-in-your-machine-chefs-test-kitchen)
+3. [A Linux machine with Chef Workstation (using Chef Zero)](#option-3-in-your-linux-machine-with-chef-workstation)
 
 ## Option 1: Chef Infrastructure (Chef Server and Nodes)
 
@@ -84,14 +84,14 @@ To use the test kitchen:
 **Step 1:** [Install chef workstation](https://downloads.chef.io/products/workstation)
 
 **Step 2:** Install VirtualBox and Hashicorp Vagrant. (If you have a mac and homebrew, you can run the commands):
-```
+```shell
 brew install virtualbox --cask
 brew install vagrant --cask
 ```
 
 **Step 3:** Get your computer network interface name that will be used for in the test VMs: `VBoxManage list bridgedifs | grep Name`:
 
-```
+```shell
 # VBoxManage list bridgedifs | grep Name
 Name:            en0: Wi-Fi (AirPort)
 Name:            bridge0
@@ -112,7 +112,7 @@ VBoxNetworkName: HostInterfaceNetworking-en12
 **Step 5:** To setup your kitchen (download and launch VMs), enter: `kitchen create`
 
 **Step 6:** To confirm your kitchen is running, enter: `kitchen list`. The list will show you the VMs with last action Created:
-```
+```shell
 # kitchen list
 Instance                    Driver   Provisioner  Verifier  Transport  Last Action  Last Error
 asa-chef-ubuntu-1804        Vagrant  ChefZero     Inspec    Ssh        Created      <None>
@@ -135,7 +135,7 @@ In ASA, you will see your server enrolled in your project:
 
 The test kitchen will validate if ASA is properly installed, enabled, and running on all servers. For example:
 
-```
+```shell
 -----> Verifying <asa-chef-oracle-82>...
        Loaded tests from {:path=>".Users.fhakamine.sudobinbash.asa-chef-example.test.integration.default"} 
 
@@ -154,7 +154,7 @@ Test Summary: 3 successful, 0 failures, 0 skipped
 
 **Step 9:** After tests, you can blow away your kitchen with the command `kitchen destroy`, and then remove the servers from the ASA Admin console.
 
-## In your Linux machine with Chef Workstation
+## Option 3: In your Linux machine with Chef Workstation
 
 **Step 1:** Test the chef cookbook `chef-client --local-mode --why-run recipes/default.rb`
 
