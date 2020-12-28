@@ -1,0 +1,27 @@
+---
+driver:
+  name: vagrant
+
+provisioner:
+  name: chef_zero
+
+verifier:
+  name: inspec
+
+# Platforms from Chef Bento: https://app.vagrantup.com/bento
+platforms:
+  - name: ubuntu-18.04
+  - name: centos-7
+  - name: debian-10.7
+  - name: opensuse-leap-15.2
+  - name: oracle-8.2
+
+suites:
+  - name: asa-chef
+    driver:
+      network:
+      - ["public_network", { bridge: "en0: Wi-Fi (AirPort)" }]
+    verifier:
+      inspec_tests:
+        - test/integration/default
+    attributes: 
