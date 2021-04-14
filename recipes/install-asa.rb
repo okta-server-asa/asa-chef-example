@@ -48,7 +48,8 @@ directory '/etc/sft' do
 end
 
 file '/etc/sft/sftd.yaml' do
-  content "---\n# CanonicalName: Specifies the name clients should use/see when connecting to this host.\nCanonicalName: \"" + node['name'] + '"'
+  content "---\n# CanonicalName: Specifies the name clients should use/see when connecting to this host.\nCanonicalName: \"" + node['name'] + '"' + 
+          "\n# AccessInterface: Specifies interface for integration.\nAccessInterface: eth1"
   action :create
 end
 
